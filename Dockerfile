@@ -49,18 +49,18 @@ USER dfm
 #     to handle a couple of concurrent uploads. Increase via env if needed.
 #   - 300s timeout: STEP analysis can take a while on large parts.
 #   - access log to stdout so it shows up in CloudWatch.
-ENV PORT=5000 \
+ENV PORT=80 \
     GUNICORN_WORKERS=2 \
     GUNICORN_TIMEOUT=300 \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
-EXPOSE 5000
+EXPOSE 80
 
 # /health is provided by app.py via gunicorn's WSGI; no extra endpoint
 # wiring needed because we add it in app.py below.
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
-    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:5000/health',timeout=5).status==200 else 1)" \
+    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:80/health',timeout=5).status==200 else 1)" \
         || exit 1
 
 CMD ["sh", "-c", "gunicorn --workers=${GUNICORN_WORKERS} --timeout=${GUNICORN_TIMEOUT} --bind=0.0.0.0:${PORT} --access-logfile=- --error-logfile=- app:app"]
