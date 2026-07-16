@@ -4,8 +4,8 @@
 # Uses gunicorn as the WSGI server (Flask's dev server is not for production).
 #
 # Build:   docker build -t dfm-inspector .
-# Run:     docker run -p 5000:5000 dfm-inspector
-# Health:  curl http://localhost:5000/health
+# Run:     docker run -p 80:80 dfm-inspector
+# Health:  curl http://localhost:80/health
 #
 # Image size target: ~500MB. The bulk is matplotlib + scikit-learn + numpy.
 
