@@ -40,7 +40,6 @@ COPY app.py /app/app.py
 COPY src/ /app/src/
 COPY templates/ /app/templates/
 COPY rules/ /app/rules/
-COPY config/ /app/config/
 
 # Drop privileges.
 USER dfm
