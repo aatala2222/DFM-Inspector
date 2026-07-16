@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\exchange\urdf.py
+# hypothesis_version: 6.151.9
+
+[1.0, '0 0 0', '1.0', '1.4', 'author', 'blank@blank.blank', 'child', 'collision', 'color', 'description', 'email', 'fixed', 'geometry', 'inertia', 'inertial', 'joint', 'link', 'mass', 'material', 'mesh', 'model', 'model.config', 'name', 'origin', 'parent', 'robot', 'root', 'schema/urdf.xsd', 'sdf', 'version', 'visual', '{:.2E}']

@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\src\feature_detector.py
+# hypothesis_version: 6.151.9
+
+[0.0, 0.1, 0.2, 0.8, 1.0, 2.0, 5.0, 45.0, 90.0, 100.0, 'Detecting bosses...', 'Detecting corners...', 'Detecting holes...', 'Detecting pockets...', 'Detecting ribs...', 'angle', 'boss', 'by_type', 'center_2d', 'circularity', 'corner', 'count', 'depth', 'diameter', 'features', 'height', 'hole', 'length', 'pocket', 'polygons_closed', 'radius', 'rib', 'thickness', 'to_planar', 'total_features', 'width', 'z']

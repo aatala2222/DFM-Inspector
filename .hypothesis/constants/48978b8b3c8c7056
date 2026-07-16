@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\exchange\stl.py
+# hypothesis_version: 6.151.9
+
+['<f4', '<u2', '<u4', 'attributes', 'endfacet', 'endloop', 'endsolid', 'endsolid\n', 'face_attributes', 'face_count', 'face_normals', 'faces', 'geometry', 'header', 'metadata', 'name', 'normal', 'normals', 'outer loop', 'solid', 'stl', 'stl_ascii', 'vertex', 'vertices']

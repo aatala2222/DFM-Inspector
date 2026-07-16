@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\typed.py
+# hypothesis_version: 6.151.9
+
+['Any', 'ArrayLike', 'BinaryIO', 'Callable', 'DTypeLike', 'Dict', 'Hashable', 'IO', 'Integer', 'Iterable', 'List', 'Literal', 'Loadable', 'Mapping', 'NDArray', 'Number', 'Optional', 'Self', 'Sequence', 'Set', 'Stream', 'Tuple', 'ViewerType', 'binvox', 'blender', 'difference', 'float64', 'gl', 'inferno', 'int64', 'intersection', 'jupyter', 'magma', 'manifold', 'marimo', 'networkx', 'plasma', 'ray', 'scipy', 'subdivide', 'union', 'viridis']

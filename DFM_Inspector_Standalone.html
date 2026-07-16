@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFM Inspector - Standalone Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 30px; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .upload-zone {
+            border: 3px dashed #667eea;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .upload-zone:hover { border-color: #764ba2; background: #f0f2ff; }
+        .upload-icon { font-size: 3em; margin-bottom: 15px; }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .process-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .process-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .process-card.selected { border-color: #667eea; background: #f8f9ff; }
+        .process-card.disabled { opacity: 0.5; cursor: not-allowed; }
+        .process-icon { font-size: 2.5em; margin-bottom: 10px; }
+        .process-name { font-weight: bold; margin-bottom: 5px; }
+        .process-desc { font-size: 0.9em; color: #666; }
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        .badge-available { background: #28a745; color: white; }
+        .badge-soon { background: #ffc107; color: #333; }
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        .hidden { display: none; }
+        .alert { padding: 15px; border-radius: 8px; margin: 10px 0; }
+        .alert-success { background: #d4edda; color: #155724; }
+        .alert-error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 DFM Inspector</h1>
+            <p>Manufacturing Design Analysis Tool</p>
+        </div>
+        <div id="alert" class="alert hidden"></div>
+        <div class="card">
+            <h2>📁 Step 1: Upload CAD File</h2>
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">📤</div>
+                <p>Drag & drop your file here or click to browse</p>
+                <input type="file" id="fileInput" accept=".step,.stp,.iges,.igs,.stl" style="display: none;">
+                <button class="btn" onclick="document.getElementById('fileInput').click()">Choose File</button>
+            </div>
+            <div id="fileInfo" class="hidden" style="margin-top: 15px; padding: 10px; background: #e8f5e9; border-radius: 5px;">
+                <strong>✓ File:</strong> <span id="fileName"></span>
+            </div>
+        </div>
+        <div id="processSection" class="card hidden">
+            <h2>⚙️ Step 2: Select Manufacturing Process</h2>
+            <div class="process-grid" id="processGrid"></div>
+        </div>
+        <div id="materialSection" class="card hidden">
+            <h2>🔬 Step 3: Select Material</h2>
+            <select id="materialSelect"><option value="">-- Choose Material --</option></select>
+        </div>
+        <div id="analyzeSection" class="card hidden">
+            <button id="analyzeBtn" class="btn" style="width: 100%; padding: 15px; font-size: 1.2em;">🚀 Run DFM Analysis</button>
+        </div>
+    </div>
+    <script>
+        const PROCESSES = {
+            cnc_machining: {name: 'CNC Machining', icon: '⚙️', description: 'Milling, turning, drilling', status: 'available', materials: ['Aluminum 6061', 'Steel 1018']},
+            welding: {name: 'Welding', icon: '🔥', description: 'MIG, TIG welding', status: 'available', materials: ['Steel', 'Aluminum']},
+            sheet_metal: {name: 'Sheet Metal', icon: '📋', description: 'Bending, forming', status: 'coming_soon', materials: ['Steel']},
+            injection_molding: {name: 'Injection Molding', icon: '💉', description: 'Plastic molding', status: 'coming_soon', materials: ['ABS']},
+            die_casting: {name: 'Die Casting', icon: '🏭', description: 'Metal casting', status: 'coming_soon', materials: ['Aluminum']},
+            investment_casting: {name: 'Investment Casting', icon: '🎨', description: 'Lost-wax', status: 'coming_soon', materials: ['Steel']},
+            mim: {name: 'Metal Injection Molding', icon: '🔩', description: 'Powder metallurgy', status: 'coming_soon', materials: ['Stainless']},
+            rotational_molding: {name: 'Rotational Molding', icon: '🔄', description: 'Hollow parts', status: 'coming_soon', materials: ['PE']},
+            wire_forming: {name: 'Wire Forming', icon: '🔗', description: 'Wire bending', status: 'coming_soon', materials: ['Steel Wire']},
+            vacuum_forming: {name: 'Vacuum Forming', icon: '🌬️', description: 'Thermoforming', status: 'coming_soon', materials: ['ABS']}
+        };
+        let uploadedFile = null, selectedProcess = null, selectedMaterial = null;
+        function initProcesses() {
+            const grid = document.getElementById('processGrid');
+            for (const [key, proc] of Object.entries(PROCESSES)) {
+                const card = document.createElement('div');
+                card.className = `process-card ${proc.status !== 'available' ? 'disabled' : ''}`;
+                const badge = proc.status === 'available' ? '<span class="badge badge-available">✓ Ready</span>' : '<span class="badge badge-soon">⏳ Soon</span>';
+                card.innerHTML = `${badge}<div class="process-icon">${proc.icon}</div><div class="process-name">${proc.name}</div><div class="process-desc">${proc.description}</div>`;
+                card.addEventListener('click', () => {
+                    if (proc.status !== 'available') { alert('Coming soon!'); return; }
+                    document.querySelectorAll('.process-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    selectedProcess = key;
+                    const select = document.getElementById('materialSelect');
+                    select.innerHTML = '<option value="">-- Choose Material --</option>';
+                    proc.materials.forEach(m => select.innerHTML += `<option value="${m}">${m}</option>`);
+                    document.getElementById('materialSection').classList.remove('hidden');
+                });
+                grid.appendChild(card);
+            }
+        }
+        document.getElementById('fileInput').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                uploadedFile = file;
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('fileInfo').classList.remove('hidden');
+                document.getElementById('processSection').classList.remove('hidden');
+            }
+        });
+        document.getElementById('materialSelect').addEventListener('change', function() {
+            selectedMaterial = this.value;
+            if (selectedMaterial) document.getElementById('analyzeSection').classList.remove('hidden');
+        });
+        document.getElementById('analyzeBtn').addEventListener('click', () => {
+            alert('Analysis complete! Score: 85.5\\n\\nThis is a demo version.\\nDeploy to cloud for full functionality.');
+        });
+        window.addEventListener('DOMContentLoaded', initProcesses);
+    </script>
+</body>
+</html>

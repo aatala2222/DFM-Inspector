@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\exchange\gltf\extensions.py
+# hypothesis_version: 6.151.9
+
+['EXT_texture_webp', '_source', 'data', 'material', 'mesh_kwargs', 'parse_textures', 'primitive', 'primitive_export', 'primitive_preprocess', 'source', 'texture_source']

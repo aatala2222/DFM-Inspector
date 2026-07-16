@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\inertia.py
+# hypothesis_version: 6.151.9
+
+[1e-30, 0.0001, 1.0, 2.0, 5.0, 'moment_inertia_frame', 'radial', 'spherical']

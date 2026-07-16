@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\src\report_generator.py
+# hypothesis_version: 6.151.9
+
+['#28a745', '#dc3545', '#ffc107', '-', '1.0.0', '<h2>Issues</h2>', '<h2>Warnings</h2>', '=', 'END OF REPORT', 'ISSUES (CRITICAL)', 'PASSED CHECKS', 'SUMMARY', 'WARNINGS', 'file', 'html', 'issues', 'json', 'location', 'metadata', 'passed', 'recommendation', 'summary', 'text', 'timestamp', 'version', 'w', 'warnings']

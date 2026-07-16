@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\src\dfm_inspector.py
+# hypothesis_version: 6.151.9
+
+[0.0, 0.5, 2.0, 100, 'Corner Radius', 'Draft Angle', 'No undercuts allowed', 'Ribs and Bosses', 'Tolerances', 'Undercuts', 'Wall Thickness', 'allow_undercuts', 'category', 'corners_and_edges', 'details', 'dimensions', 'draft_angles', 'file', 'high', 'info', 'issues', 'location', 'medium', 'message', 'min_draft_smooth', 'min_internal_radius', 'passed', 'r', 'recommendation', 'ribs_and_bosses', 'rule', 'severity', 'status', 'summary', 'tolerances', 'total_issues', 'total_passed', 'total_warnings', 'undercuts', 'wall_thickness', 'warnings']

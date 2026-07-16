@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFM Inspector - Manufacturing Design Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .upload-section {
+            text-align: center;
+            padding: 40px;
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            background: #f8f9ff;
+            margin-bottom: 40px;
+            transition: all 0.3s;
+        }
+
+        .upload-section:hover {
+            border-color: #764ba2;
+            background: #f0f2ff;
+        }
+
+        .upload-section.dragover {
+            border-color: #28a745;
+            background: #e8f5e9;
+        }
+
+        .upload-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .file-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .file-info.show {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .process-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .process-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .process-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .process-card.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .process-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .process-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .process-description {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .process-standards {
+            color: #999;
+            font-size: 0.8em;
+            font-style: italic;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+
+        .status-available {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-coming-soon {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .material-section {
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .material-section.show {
+            display: block;
+        }
+
+        .material-select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            background: white;
+            cursor: pointer;
+        }
+
+        .material-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .analyze-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            display: none;
+        }
+
+        .analyze-btn.show {
+            display: block;
+        }
+
+        .analyze-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-value {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .score-label {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .stat-critical { color: #dc3545; }
+        .stat-warning { color: #ffc107; }
+        .stat-success { color: #28a745; }
+        .stat-info { color: #17a2b8; }
+
+        .issues-section {
+            margin-bottom: 30px;
+        }
+
+        .issue-card {
+            background: white;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .warning-card {
+            border-left-color: #ffc107;
+        }
+
+        .suggestion-card {
+            border-left-color: #17a2b8;
+        }
+
+        .issue-category {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .issue-message {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .issue-recommendation {
+            color: #28a745;
+            font-style: italic;
+            padding-left: 20px;
+            border-left: 2px solid #28a745;
+        }
+
+        .download-btn {
+            background: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 DFM Inspector</h1>
+            <p>Manufacturing Design for Manufacturability Analysis</p>
+        </div>
+
+        <div class="main-card">
+            <!-- Alert Messages -->
+            <div id="alert" class="alert"></div>
+
+            <!-- Step 1: Upload File -->
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-icon">📁</div>
+                <h2>Upload Your CAD File</h2>
+                <p style="color: #666; margin: 15px 0;">Supported formats: STEP (.step, .stp), IGES (.iges, .igs), STL (.stl)</p>
+                <div class="file-input-wrapper">
+                    <input type="file" id="fileInput" class="file-input" accept=".step,.stp,.iges,.igs,.stl">
+                    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                        Choose File
+                    </button>
+                </div>
+                <div id="fileInfo" class="file-info">
+                    <strong>📄 Selected:</strong> <span id="fileName"></span>
+                    <br>
+                    <strong>📊 Size:</strong> <span id="fileSize"></span>
+                </div>
+            </div>
+
+            <!-- Step 2: Select Manufacturing Process -->
+            <div id="processSection" style="display: none;">
+                <h2 class="section-title">
+                    <span>⚙️</span>
+                    <span>Select Manufacturing Process</span>
+                </h2>
+                <div class="process-grid" id="processGrid">
+                    {% for key, process in processes.items() %}
+                    <div class="process-card {% if process.status != 'available' %}disabled{% endif %}" 
+                         data-process="{{ key }}" 
+                         data-status="{{ process.status }}">
+                        <span class="status-badge status-{{ process.status|replace('_', '-') }}">
+                            {% if process.status == 'available' %}✓ Available{% else %}⏳ Coming Soon{% endif %}
+                        </span>
+                        <div class="process-icon">{{ process.icon }}</div>
+                        <div class="process-name">{{ process.name }}</div>
+                        <div class="process-description">{{ process.description }}</div>
+                        <div class="process-standards">{{ process.standards }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Step 3: Select Material -->
+            <div id="materialSection" class="material-section">
+                <h2 class="section-title">
+                    <span>🔬</span>
+                    <span>Select Material</span>
+                </h2>
+                <select id="materialSelect" class="material-select">
+                    <option value="">-- Select Material --</option>
+                </select>
+            </div>
+
+            <!-- Step 4: Analyze Button -->
+            <button id="analyzeBtn" class="analyze-btn">
+                🚀 Run DFM Analysis
+            </button>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <h3>Analyzing your design...</h3>
+                <p>This may take a few moments</p>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="results">
+                <h2 class="section-title">
+                    <span>📊</span>
+                    <span>Analysis Results</span>
+                </h2>
+
+                <div class="score-card">
+                    <div class="score-label">Manufacturability Score</div>
+                    <div class="score-value" id="scoreValue">--</div>
+                    <div class="score-label" id="scoreDetails">--</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value stat-critical" id="issuesCount">0</div>
+                        <div class="stat-label">Critical Issues</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-warning" id="warningsCount">0</div>
+                        <div class="stat-label">Warnings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-info" id="suggestionsCount">0</div>
+                        <div class="stat-label">Suggestions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value stat-success" id="passedCount">0</div>
+                        <div class="stat-label">Passed Checks</div>
+                    </div>
+                </div>
+
+                <div id="issuesSection" class="issues-section"></div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <a id="downloadReport" class="download-btn" href="#" download>
+                        📥 Download Full Report
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let uploadedFile = null;
+        let selectedProcess = null;
+        let selectedMaterial = null;
+
+        // File upload handling
+        const fileInput = document.getElementById('fileInput');
+        const uploadSection = document.getElementById('uploadSection');
+        const fileInfo = document.getElementById('fileInfo');
+        const processSection = document.getElementById('processSection');
+
+        fileInput.addEventListener('change', handleFileSelect);
+
+        // Drag and drop
+        uploadSection.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadSection.classList.add('dragover');
+        });
+
+        uploadSection.addEventListener('dragleave', () => {
+            uploadSection.classList.remove('dragover');
+        });
+
+        uploadSection.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadSection.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileSelect();
+            }
+        });
+
+        function handleFileSelect() {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            // Show file info
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+            fileInfo.classList.add('show');
+
+            // Upload file
+            uploadFile(file);
+        }
+
+        function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    uploadedFile = data;
+                    showAlert('File uploaded successfully!', 'success');
+                    processSection.style.display = 'block';
+                } else {
+                    showAlert(data.error || 'Upload failed', 'error');
+                }
+            })
+            .catch(error => {
+                showAlert('Upload failed: ' + error.message, 'error');
+            });
+        }
+
+        // Process selection
+        document.querySelectorAll('.process-card').forEach(card => {
+            card.addEventListener('click', function() {
+                if (this.classList.contains('disabled')) {
+                    showAlert('This process is coming soon!', 'error');
+                    return;
+                }
+
+                // Deselect all
+                document.querySelectorAll('.process-card').forEach(c => c.classList.remove('selected'));
+                
+                // Select this one
+                this.classList.add('selected');
+                selectedProcess = this.dataset.process;
+
+                // Load materials for this process
+                loadMaterials(selectedProcess);
+            });
+        });
+
+        function loadMaterials(process) {
+            fetch(`/api/materials/${process}`)
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('materialSelect');
+                    select.innerHTML = '<option value="">-- Select Material --</option>';
+                    
+                    data.materials.forEach(material => {
+                        const option = document.createElement('option');
+                        option.value = material;
+                        option.textContent = material.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        select.appendChild(option);
+                    });
+
+                    document.getElementById('materialSection').classList.add('show');
+                });
+        }
+
+        // Material selection
+        document.getElementById('materialSelect').addEventListener('change', function() {
+            selectedMaterial = this.value;
+            if (selectedMaterial) {
+                document.getElementById('analyzeBtn').classList.add('show');
+            }
+        });
+
+        // Analyze button
+        document.getElementById('analyzeBtn').addEventListener('click', runAnalysis);
+
+        function runAnalysis() {
+            if (!uploadedFile || !selectedProcess || !selectedMaterial) {
+                showAlert('Please complete all steps', 'error');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('results').classList.remove('show');
+
+            // Run inspection
+            fetch('/api/inspect', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    filepath: uploadedFile.filepath,
+                    process: selectedProcess,
+                    material: selectedMaterial
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading').classList.remove('show');
+                
+                if (data.success) {
+                    displayResults(data);
+                } else {
+                    showAlert(data.error || 'Analysis failed', 'error');
+                }
+            })
+            .catch(error => {
+                document.getElementById('loading').classList.remove('show');
+                showAlert('Analysis failed: ' + error.message, 'error');
+            });
+        }
+
+        function displayResults(data) {
+            // Score
+            const score = data.summary.machinability_score || data.summary.weldability_score || 0;
+            document.getElementById('scoreValue').textContent = score.toFixed(1);
+            document.getElementById('scoreDetails').textContent = `${data.process} | ${data.material}`;
+
+            // Stats
+            document.getElementById('issuesCount').textContent = data.summary.total_issues;
+            document.getElementById('warningsCount').textContent = data.summary.total_warnings;
+            document.getElementById('suggestionsCount').textContent = data.summary.total_suggestions || 0;
+            document.getElementById('passedCount').textContent = data.summary.total_passed;
+
+            // Issues
+            const issuesSection = document.getElementById('issuesSection');
+            issuesSection.innerHTML = '';
+
+            if (data.issues && data.issues.length > 0) {
+                issuesSection.innerHTML += '<h3>⚠️ Critical Issues</h3>';
+                data.issues.forEach(issue => {
+                    issuesSection.innerHTML += createIssueCard(issue, 'issue');
+                });
+            }
+
+            if (data.warnings && data.warnings.length > 0) {
+                issuesSection.innerHTML += '<h3>⚠️ Warnings</h3>';
+                data.warnings.forEach(warning => {
+                    issuesSection.innerHTML += createIssueCard(warning, 'warning');
+                });
+            }
+
+            if (data.suggestions && data.suggestions.length > 0) {
+                issuesSection.innerHTML += '<h3>💡 Optimization Suggestions</h3>';
+                data.suggestions.forEach(suggestion => {
+                    issuesSection.innerHTML += createIssueCard(suggestion, 'suggestion');
+                });
+            }
+
+            // Download link
+            document.getElementById('downloadReport').href = data.report_url;
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function createIssueCard(item, type) {
+            return `
+                <div class="${type}-card">
+                    <div class="issue-category">${item.category}</div>
+                    <div class="issue-message">${item.message}</div>
+                    ${item.recommendation ? `<div class="issue-recommendation">→ ${item.recommendation}</div>` : ''}
+                    ${item.benefit ? `<div class="issue-recommendation">💰 ${item.benefit}</div>` : ''}
+                </div>
+            `;
+        }
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type} show`;
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 643260088837.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
+      - echo Building Docker image...
+      - docker build -t dfm-inspector .
+      - docker tag dfm-inspector:latest 643260088837.dkr.ecr.us-east-1.amazonaws.com/dfm-inspector:latest
+  post_build:
+    commands:
+      - echo Pushing to ECR...
+      - docker push 643260088837.dkr.ecr.us-east-1.amazonaws.com/dfm-inspector:latest

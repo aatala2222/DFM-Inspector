@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\transformations.py
+# hypothesis_version: 6.151.9
+
+[-1.0, 0.0, 1e-13, 1e-08, 1e-06, 1e-05, 0.0001, 0.5, 1.0, 2.0, 3.0, 4.0, 'M[3, 3] is zero', 'WRITEABLE', 'ij,ij->i', 'ij,ik->ikj', 'invalid frustum', 'matrix is singular', 'rxyx', 'rxyz', 'rxzx', 'rxzy', 'ryxy', 'ryxz', 'ryzx', 'ryzy', 'rzxy', 'rzxz', 'rzyx', 'rzyz', 'sxyx', 'sxyz', 'sxzx', 'sxzy', 'sympy', 'syxy', 'syxz', 'syzx', 'syzy', 'szxy', 'szxz', 'szyx', 'szyz']

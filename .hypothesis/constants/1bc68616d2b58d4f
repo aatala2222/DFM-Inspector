@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\src\mesh_analyzer.py
+# hypothesis_version: 6.151.9
+
+[0.0, 1e-10, 0.3, 0.5, 0.7, 2.0, 3.0, 4.0, 100, '  ✓ Filled holes', '=', 'Defects Found:', 'Excellent', 'Fair', 'Good', 'MESH QUALITY REPORT', 'Measurements:', 'Poor', 'Quality Metrics:', 'area_faces', 'avg_triangle_quality', 'degenerate_faces', 'error', 'face_count', 'is_manifold', 'is_watertight', 'min_triangle_quality', 'non_manifold_edges', 'quality_rating', 'surface_area', 'vertex_count', 'volume', '✓ No repairs needed']

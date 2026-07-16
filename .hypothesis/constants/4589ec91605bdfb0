@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\proximity.py
+# hypothesis_version: 6.151.9
+
+[-1.0, 1e-06, 0.5, 1.0, 100, 'ij, ij->i', 'ij,ij->i', 'max_sphere', 'points must be (n,3)', 'ray']

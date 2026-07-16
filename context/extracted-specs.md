@@ -1,0 +1,8 @@
+"# Extracted Specifications" 
+"" 
+"## Source: extracted_specs/ folder" 
+"" 
+"---" 
+"## $(basename "$file")" 
+"" 
+"" 

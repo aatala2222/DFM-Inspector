@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\base.py
+# hypothesis_version: 6.151.9
+
+[-1.0, 0.0, 1e-08, 1e-06, 0.5, 1.0, 'C', 'Trimesh', '_visual', 'agg', 'b', 'body_count', 'bool', 'center_mass', 'color', 'density', 'edges', 'edges_face', 'edges_sorted', 'edges_sparse', 'edges_unique', 'edges_unique_idx', 'edges_unique_inverse', 'euler_number', 'face_adjacency', 'face_adjacency_edges', 'face_adjacency_span', 'face_index', 'face_normals', 'faces', 'faces_unique_edges', 'facets_origin', 'i', 'inertia', 'kind', 'mass', 'mass_properties', 'obj', 'processed', 'subdivide', 'symmetry_axis', 'symmetry_section', 'target_count', 'target_reduction', 'to_3D', 'triangulating faces', 'trimesh', 'uv', 'v ', 'vertex_normals', 'vertices', 'vt ']

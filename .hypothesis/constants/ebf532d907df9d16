@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\visual\__init__.py
+# hypothesis_version: 6.151.9
+
+['ColorVisuals', 'DEFAULT_COLOR', 'TextureVisuals', 'color', 'create_visual', 'interpolate', 'linear_color_map', 'random_color', 'resolvers', 'texture', 'to_rgba', 'uv_to_color']

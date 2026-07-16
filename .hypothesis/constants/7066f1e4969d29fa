@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\registration.py
+# hypothesis_version: 6.151.9
+
+[0.0, 1e-05, 0.0001, 0.001, 0.01, 0.02, 0.03, 0.1, 0.5, 1.0, 2.5, 100, 500, 1000, 'Trimesh', 'csc', 'distances', 'ij,ijk->ik', 'interpolated_normals', 'nearest', 'normals', 'tids', 'vertex', 'vertex_indices']

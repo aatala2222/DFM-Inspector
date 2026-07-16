@@ -1,0 +1,8 @@
+"# Extracted Specifications (Latest - April 2026)" 
+"" 
+"## Source: extracted_specs_new/ folder" 
+"" 
+"---" 
+"## $(basename "$file")" 
+"" 
+"" 

@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\src\config.py
+# hypothesis_version: 6.151.9
+
+[0.01, 0.3, 0.5, 100, 200, 1000, 1080, 1920, 100000, '.', 'AP203', 'AP214', 'CRITICAL', 'Config', 'Config(not_loaded)', 'DEBUG', 'ERROR', 'GEOM_ANALYSIS_', 'INFO', 'WARNING', '_', 'auto_repair_enabled', 'console', 'dpi', 'fallback_enabled', 'false', 'feature_detector', 'geometry_analyzer', 'height', 'level', 'logging', 'logging.level', 'max_file_size_mb', 'max_samples', 'mesh_analyzer', 'min_feature_size', 'min_samples', 'min_triangle_quality', 'num_workers', 'parallel_processing', 'parser', 'performance', 'quality', 'r', 'repair', 'resolution', 'sample_density', 'supported_formats', 'true', 'utf-8', 'visualization', 'wall_thickness', 'width']

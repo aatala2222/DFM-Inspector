@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\src\enhanced_step_parser.py
+# hypothesis_version: 6.151.9
+
+[0.0, 1e-10, 0.5, 1.0, '(', ')', ',', '.step', 'EnhancedSTEPParser', 'Not parsed', '\\(\\s*([^)]+?)\\s*\\)', 'dimensions', 'edge_to_faces', 'edges', 'edges_face', 'error', 'face', 'face_adjacency', 'face_areas', 'face_count', 'face_normals', 'faces', 'file_type', 'ignore', 'is_watertight', 'normals', 'parsed', 'parser', 'r', 'surface_area', 'surfaces', 'utf-8', 'vertex', 'vertex_count', 'vertex_to_edges', 'vertices', 'volume', 'x', 'y', 'z']

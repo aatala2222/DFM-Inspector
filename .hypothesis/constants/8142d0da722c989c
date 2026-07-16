@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\path\traversal.py
+# hypothesis_version: 6.151.9
+
+[0.0, 1.0, 'discrete', 'edges not connected!', 'entity path: %s', 'entity[a]: %s,', 'entity[b]: %s', 'entity_index', 'paths', 'polygons_closed', 'root', 'split_2D', 'vertex path %s']

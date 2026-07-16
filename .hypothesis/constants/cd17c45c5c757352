@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\rules\manufacturing_rules.py
+# hypothesis_version: 6.151.9
+
+[0.5, 0.6, 1.0, 1.5, 2.0, 3.0, 10.0, 'Corner Radius', 'Draft Angle', 'Fatigue', 'Holes', 'Ribs', 'Safety', 'Structural', 'Tool Access', 'Wall Thickness', 'cnc_machining', 'critical', 'degrees', 'factor', 'hole_depth_ratio', 'injection_molding', 'min_draft_angle', 'min_hole_diameter', 'min_internal_radius', 'min_tool_radius', 'min_wall_thickness', 'mm', 'ratio', 'rib_thickness_ratio', 'robotics', 'safety_factor', 'warning']

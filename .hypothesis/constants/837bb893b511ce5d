@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\numpy\lib\recfunctions.py
+# hypothesis_version: 6.151.9
+
+['1', '2', '__iter__', 'append_fields', 'apply_along_fields', 'asrecarray', "can't both be empty", 'defaults', 'drop_fields', 'find_duplicates', 'flatten_descr', 'formats', 'get_fieldstructure', 'get_names', 'get_names_flat', 'inner', 'itemsize', 'join_by', 'jointype', 'leftouter', 'merge_arrays', 'names', 'offsets', 'outer', 'r1postfix', 'r2postfix', 'rec_append_fields', 'rec_drop_fields', 'rec_join', 'rename_fields', 'repack_fields', 'require_fields', 'stack_arrays', 'unsafe', 'usemask']

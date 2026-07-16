@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\visual\material.py
+# hypothesis_version: 6.151.9
+
+[0.0, 1e-05, 0.5, 1.0, 4.0, 100, 255, 1000, 8192, ', ', 'A', 'BGR', 'BLEND', 'L', 'MASK', 'OPAQUE', 'RGB', 'RGBA', '_glossiness', '_name', 'alphaCutoff', 'alphaMode', 'baseColorFactor', 'baseColorTexture', 'copy', 'diffuse', 'doubleSided', 'emissiveFactor', 'emissiveTexture', 'image', 'material_0', 'metallicFactor', 'must be subclassed!', 'name', 'normalTexture', 'occlusionTexture', 'png', 'roughnessFactor', 'tobytes', 'utf-8']

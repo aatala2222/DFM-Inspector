@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\visual\color.py
+# hypothesis_version: 6.151.9
+
+[0.0, 0.00313066844250063, 0.0404482362771082, 0.055, 0.5, 0.61803, 0.99, 1.0, 1.055, 2.0, 2.4, 6.0, 12.92, 77.0, 102, 197, 255, '#', 'ColorVisuals', 'Only RGB supported', 'RGBA', '_cache', '_colors', '_hash', 'color_map.json.gzip', 'f', 'face', 'face_colors', 'iu', 'material_ambient', 'material_diffuse', 'material_shine', 'material_specular', 'unsupported name!!!', 'vertex', 'vertex_colors', 'viridis']

@@ -1,0 +1,8 @@
+"# DFM Rules" 
+"" 
+"## Source: rules/ folder" 
+"" 
+"---" 
+"## $(basename "$file")" 
+"" 
+"" 

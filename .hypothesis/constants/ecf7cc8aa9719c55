@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\__init__.py
+# hypothesis_version: 6.151.9
+
+['Geometry', 'PointCloud', 'Scene', 'Trimesh', '__version__', 'available_formats', 'boolean', 'bounds', 'caching', 'collision', 'comparison', 'convex', 'creation', 'curvature', 'decomposition', 'exceptions', 'geometry', 'graph', 'grouping', 'inertia', 'intersections', 'iteration', 'load', 'load_mesh', 'load_path', 'load_remote', 'load_scene', 'nsphere', 'path', 'permutate', 'poses', 'primitives', 'proximity', 'ray', 'registration', 'remesh', 'repair', 'sample', 'smoothing', 'tol', 'transform_points', 'transformations', 'triangles', 'unitize', 'units', 'util', 'voxel']

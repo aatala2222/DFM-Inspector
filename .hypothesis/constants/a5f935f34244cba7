@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\src\data_models.py
+# hypothesis_version: 6.151.9
+
+[0.0, 1.0, 100.0, 'FeatureReport', 'analysis_date', 'bosses', 'confidence_scores', 'coordinates', 'corners', 'feature', 'geometric_analysis', 'holes', 'measurements', 'mm', 'part_name', 'plane', 'pockets', 'ribs', 'unknown', 'walls', 'warning']

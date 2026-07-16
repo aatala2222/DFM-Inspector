@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\src\cad_parser.py
+# hypothesis_version: 6.151.9
+
+[0.0, 0.1, 1.0, '.iges', '.igs', '.step', '.stl', '.stp', 'area', 'dimensions', 'face', 'max', 'min', 'normal', 'type']

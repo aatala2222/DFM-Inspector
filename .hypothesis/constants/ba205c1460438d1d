@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\exchange\export.py
+# hypothesis_version: 6.151.9
+
+['.', '3mf', 'base64', 'bounds', 'centroid', 'data', 'dict', 'dict64', 'export', 'extents', 'face', 'face_colors', 'face_normals', 'faces', 'file_name', 'file_path', 'file_type', 'geometry', 'glb', 'gltf', 'graph', 'metadata', 'model.gltf', 'obj', 'ply', 'resolver', 'scale', 'scene_cache', 'stl', 'stl_ascii', 'svg', 'units', 'vertex', 'vertex_colors', 'vertices', 'wb', 'write']

@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\path\entities.py
+# hypothesis_version: 6.151.9
+
+[b'Arc', b'BSpline', b'Line', b'Text', 0.0, 0.5, 1.0, '_closed', '_direction', '_metadata', 'center', 'closed', 'decode', 'knots', 'layer', 'only for 2D points!', 'points', 'type', 'utf-8']

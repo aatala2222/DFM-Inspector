@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\path\path.py
+# hypothesis_version: 6.151.9
+
+[0.0, 1e-08, 0.0002, 0.025, 1000.0, 10000.0, 'Arc', 'Arc0', 'Arc1', 'BSpline Bezier Text', 'BSpline0', 'BSpline1', 'Bezier0', 'Bezier1', 'C', 'Line', 'Line0', 'Line1', 'Path2D', 'WRITEABLE', 'b', 'color', 'dangling', 'datalim', 'dict', 'discrete', 'enclosure', 'enclosure_directed', 'enclosure_shell', 'equal', 'g', 'k', 'linewidth', 'm', 'path_valid', 'paths', 'plot', 'points are not flat!', 'r', 'root', 'to_3D', 'unable to copy cache', 'utf-8', 'vertex_graph', 'y']

@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\creation.py
+# hypothesis_version: 6.151.9
+
+[-2.0, 0.0, 1e-10, 1e-08, 0.04, 0.4, 0.5, 1.0, 2.0, 5.0, 10.0, 100, 255, 'C', 'Faces must be (n,3)', 'Path must be (n, 3)!', 'Polygon', 'annulus', 'box', 'capsule', 'color', 'cone', 'creation.json', 'cylinder', 'earcut', 'extents', 'face_colors', 'face_normals', 'faces', 'height', 'holes', 'icosahedron', 'major_radius', 'manifold', 'manifold3d', 'mapbox_earcut', 'metadata', 'minor_radius', 'p', 'process', 'r_max', 'r_min', 'radius', 'segments', 'shape', 'sphere', 'torus', 'triangle', 'triangles', 'vertices']

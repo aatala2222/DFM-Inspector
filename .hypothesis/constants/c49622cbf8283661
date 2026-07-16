@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\exchange\obj.py
+# hypothesis_version: 6.151.9
+
+[b'\n\n', '\nf', '\nf ', '\ng ', '\no ', '\no {}', '\ns ', '\nusemtl ', '\nv ', '\nvn ', '\nvt ', '\n{}\n', '+e', '-e', '.mtl', '/', 'PointCloud', 'Scene', 'Trimesh', '\\\n', '^f', '_', 'ambient', 'diffuse', 'e', 'f ', 'face', 'faces', 'failed to load image', 'file_name', 'file_path', 'frame_to', 'g ', 'geometry', 'glossiness', 'graph', 'image', 'ka', 'kd', 'ks', 'map_kd', 'material.mtl', 'mtllib', 'name', 'newmtl', 'ns', 'o ', 'obj', 'parent', 'specular', 'to_simple', 'usemtl', 'usemtl ', 'uv', 'v', 'v ', 'vertex', 'vertex_colors', 'vertex_normals', 'vertices', 'visual', 'vn', 'vn ', 'vt', 'vt ', '{}', '{}//{}', '{}/{}', '{}/{}/{}']

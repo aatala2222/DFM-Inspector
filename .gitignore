@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Reports
+#*.html
+*.json
+*.txt
+!requirements.txt
+!requirements-cloud.txt
+!requirements-minimal.txt
+!README.md
+!CUSTOM_RULES_TEMPLATE.md
+
+# CAD files (optional - uncomment if you don't want to track them)
+# *.step
+# *.stp
+# *.iges
+# *.igs
+# *.stl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# Hypothesis property-test cache (dev only)
+.hypothesis/
+
+# Brazil workspaces (dev only - never commit to git)
+dfmshare-ws/
+*-ws/
+
+# Empty / mystery files
+/Minor
+
+Process Specs_043026/

@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\primitives.py
+# hypothesis_version: 6.151.9
+
+[0.0, 1e-08, 0.5, 1.0, 2.0, 3.0, 4.0, 10.0, 'C', '_', 'box', 'capsule', 'center', 'cylinder', 'extents', 'extrusion', 'face_normals', 'faces', 'height', 'kind', 'mid_plane', 'polygon', 'process', 'radius', 'sections', 'sphere', 'subdivisions', 'transform', 'vertices']

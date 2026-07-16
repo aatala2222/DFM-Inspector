@@ -1,0 +1,104 @@
+# Keep the Docker build context small and the image free of noise.
+# Anything not needed at runtime should be listed here.
+
+# Git metadata
+.git
+.gitignore
+.gitattributes
+
+# Local development
+.venv
+venv
+env
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.hypothesis
+.coverage
+htmlcov
+
+# IDE / editor
+.vscode
+.idea
+*.swp
+*~
+
+# Spec docs / process docs not needed in the container
+.kiro
+docs
+agent-sops
+context
+extracted_specs
+extracted_specs_new
+"Process Specs"
+"Process Specs_043026"
+reference_pdfs
+
+# Sample / test fixtures (large CAD files)
+sample_files
+
+# Local-only / windows-specific helpers
+DFM_Inspector_Launcher.bat
+START_SERVER.bat
+toolbox-bootstrap.cmd
+create_desktop_shortcut.ps1
+
+# Working / scratch documents
+*.docx
+*.pptx
+*.svg
+DEPLOYMENT_GUIDE.md
+DFM_Deployment_*.md
+DFM_Deployment_*.svg
+DFM_RULES_REFERENCE.md
+3D_RENDERING*.md
+3D_VISUALIZATION_FEATURE.md
+CAD_QUALITY*.md
+CLEANUP_SUMMARY.md
+COUNTERBORE_VS_COUNTERSINK*.md
+DFM_RULES_COMPREHENSIVE_GUIDE.md
+ENHANCED_*.md
+FINAL_*.md
+GEOMETRY_ANALYZER_COMPLETE.md
+HOLE_*.md
+IMPLEMENTATION_*.md
+INTEGRATION_*.md
+PROCESS_DESIGN_CRITERIA_ANALYSIS.md
+QUICK_START*.md
+READY_TO_TEST.md
+REGENERATE_REPORT.md
+SESSION_*.md
+START_HERE.md
+TESTING_GUIDE.md
+TEST_*.md
+VISUAL_ANNOTATIONS_ADDED.md
+WHAT_YOU_CAN_DO_NOW.md
+WHY_SERVER_ISSUES.md
+WORD_EXPORT_TROUBLESHOOTING.md
+
+# Test / debug scripts that shouldn't ship
+debug_thickness.py
+test_extractor.py
+create_dfm_violation_part.py
+create_dfm_violation_step.py
+create_deployment_presentation.py
+create_dfm_guide_docx.py
+create_roll_forming_doc.py
+extract_new_guidelines.py
+extract_remaining.py
+extract_process_specs.py
+integrate_enhanced_rules.py
+test_enhanced_api.py
+test_enhanced_dfm_workflow.py
+test_full_workflow.py
+test_step_loading.py
+test_word_rendering.py
+
+# Ad-hoc files
+test_report.docx
+Roll_Forming_Tolerances.docx
+Minor
+DFMInspector
+DFM_Inspector_Standalone.html

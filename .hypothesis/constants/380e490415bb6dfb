@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\exchange\xaml.py
+# hypothesis_version: 6.151.9
+
+[255, '#', ',', 'Color', 'Diffuse', 'GeometryModel3D', 'Matrix', 'MatrixTransform3D', 'MeshGeometry3D', 'Normals', 'Opacity', 'Positions', 'Specular', 'TriangleIndices', 'face_colors', 'faces', 'meters', 'units', 'vertex_normals', 'vertices', 'xaml', '}']

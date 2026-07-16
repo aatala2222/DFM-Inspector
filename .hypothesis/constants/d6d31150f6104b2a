@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\exchange\dae.py
+# hypothesis_version: 6.151.9
+
+[0.0, 1.0, 2.0, 255.0, '#colors-array', '#normals-array', '#texcoords-array', '#verts-array', '.dae', 'B', 'COLOR', 'G', 'NORMAL', 'R', 'Scene', 'TEXCOORD', 'U', 'V', 'VERTEX', 'X', 'Y', 'Z', 'class', 'collada', 'colors-array', 'dae', 'defaultmaterial', 'face', 'faces', 'frame_to', 'geometry', 'graph', 'matrix', 'metadata', 'meters', 'normals-array', 'pbrmaterial', 'phong', 'scene', 'texcoords-array', 'texture', 'units', 'vertex', 'vertex_colors', 'vertex_normals', 'vertices', 'verts-array', 'visual', 'zae', 'zip']

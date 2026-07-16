@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFM Inspector</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        
+        .upload-zone {
+            border: 3px dashed #667eea;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-zone:hover {
+            border-color: #764ba2;
+            background: #f0f2ff;
+        }
+        
+        .upload-zone.dragover {
+            border-color: #28a745;
+            background: #e8f5e9;
+        }
+        
+        .upload-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .process-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .process-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .process-card.selected {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .process-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .process-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .process-desc {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        
+        .badge-available {
+            background: #28a745;
+            color: white;
+        }
+        
+        .badge-soon {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .results {
+            margin-top: 20px;
+        }
+        
+        .score-display {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .score-value {
+            font-size: 4em;
+            font-weight: bold;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .issue-card {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .issue-card.critical {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 DFM Inspector</h1>
+            <p>Manufacturing Design Analysis Tool</p>
+        </div>
+
+        <div id="alert" class="alert hidden"></div>
+
+        <!-- Step 1: Upload -->
+        <div class="card">
+            <h2>📁 Step 1: Upload CAD File</h2>
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">📤</div>
+                <p>Drag & drop your file here or click to browse</p>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                    Supported: STEP, IGES, STL (max 100MB)
+                </p>
+                <input type="file" id="fileInput" accept=".step,.stp,.iges,.igs,.stl" style="display: none;">
+                <button class="btn" onclick="document.getElementById('fileInput').click()">
+                    Choose File
+                </button>
+            </div>
+            <div id="fileInfo" class="hidden" style="margin-top: 15px; padding: 10px; background: #e8f5e9; border-radius: 5px;">
+                <strong>✓ File:</strong> <span id="fileName"></span>
+            </div>
+        </div>
+
+        <!-- Step 2: Select Process -->
+        <div id="processSection" class="card">
+            <h2>⚙️ Step 2: Select Manufacturing Process</h2>
+            <div class="process-grid">
+                {% for key, proc in processes.items() %}
+                <div class="process-card" 
+                     data-process="{{ key }}" 
+                     data-status="{{ proc.status }}">
+                    <span class="badge badge-{{ 'available' if proc.status == 'available' else 'soon' }}">
+                        {{ '✓ Ready' if proc.status == 'available' else '⏳ Soon' }}
+                    </span>
+                    <div class="process-icon">{{ proc.icon }}</div>
+                    <div class="process-name">{{ proc.name }}</div>
+                    <div class="process-desc">{{ proc.description }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Step 3: Select Material -->
+        <div id="materialSection" class="card">
+            <h2>🔬 Step 3: Select Material</h2>
+            <select id="materialSelect">
+                <option value="">-- Choose Material --</option>
+            </select>
+        </div>
+
+        <!-- Step 4: Analyze -->
+        <div id="analyzeSection" class="card">
+            <button id="analyzeBtn" class="btn btn-success" style="width: 100%; padding: 15px; font-size: 1.2em;">
+                🚀 Run DFM Analysis
+            </button>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="card hidden">
+            <div class="loading">
+                <div class="spinner"></div>
+                <h3>Analyzing your design...</h3>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="card hidden">
+            <h2>📊 Analysis Results</h2>
+            <div class="score-display">
+                <div style="font-size: 1.2em; margin-bottom: 10px;">Manufacturability Score</div>
+                <div class="score-value" id="scoreValue">--</div>
+                <div id="scoreDetails" style="margin-top: 10px; opacity: 0.9;">--</div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" style="color: #dc3545;" id="issuesCount">0</div>
+                    <div class="stat-label">Critical Issues</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" style="color: #ffc107;" id="warningsCount">0</div>
+                    <div class="stat-label">Warnings</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" style="color: #17a2b8;" id="suggestionsCount">0</div>
+                    <div class="stat-label">Suggestions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" style="color: #28a745;" id="passedCount">0</div>
+                    <div class="stat-label">Passed</div>
+                </div>
+            </div>
+            
+            <!-- Export Button -->
+            <div style="text-align: center; margin: 20px 0;">
+                <button onclick="exportToWord()" style="background: linear-gradient(135deg, #2c5aa0 0%, #1e3a5f 100%); color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 16px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s;">
+                    📄 Export to Word Document
+                </button>
+            </div>
+            
+            <div id="issuesList"></div>
+        </div>
+    </div>
+
+    <script>
+        let uploadedFile = null;
+        let selectedProcess = null;
+        let selectedMaterial = null;
+
+        // File upload
+        const fileInput = document.getElementById('fileInput');
+        const uploadZone = document.getElementById('uploadZone');
+
+        fileInput.addEventListener('change', handleFile);
+        
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFile();
+            }
+        });
+
+        function handleFile() {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    uploadedFile = data;
+                    document.getElementById('fileName').textContent = data.filename;
+                    document.getElementById('fileInfo').classList.remove('hidden');
+                    document.getElementById('processSection').classList.remove('hidden');
+                    showAlert('File uploaded successfully!', 'success');
+                } else {
+                    showAlert(data.error, 'error');
+                }
+            })
+            .catch(err => showAlert('Upload failed: ' + err.message, 'error'));
+        }
+
+        // Process selection
+        document.querySelectorAll('.process-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.process-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedProcess = this.dataset.process;
+                
+                const proc = this.dataset.status;
+                if (proc !== 'available') {
+                    showAlert('Note: This process is in development. Demo results will be shown.', 'success');
+                }
+                
+                // Load materials
+                fetch(`/api/materials/${selectedProcess}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        const select = document.getElementById('materialSelect');
+                        select.innerHTML = '<option value="">-- Choose Material --</option>';
+                        data.materials.forEach(m => {
+                            select.innerHTML += `<option value="${m}">${m}</option>`;
+                        });
+                        document.getElementById('materialSection').classList.remove('hidden');
+                    });
+            });
+        });
+
+        // Material selection
+        document.getElementById('materialSelect').addEventListener('change', function() {
+            selectedMaterial = this.value;
+            if (selectedMaterial) {
+                document.getElementById('analyzeSection').classList.remove('hidden');
+            }
+        });
+
+        // Analyze
+        document.getElementById('analyzeBtn').addEventListener('click', () => {
+            if (!uploadedFile || !selectedProcess || !selectedMaterial) {
+                showAlert('Please complete all steps', 'error');
+                return;
+            }
+
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+
+            fetch('/api/analyze', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    upload_id: uploadedFile.upload_id,
+                    filename: uploadedFile.filename,
+                    process: selectedProcess,
+                    material: selectedMaterial
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('loading').classList.add('hidden');
+                if (data.success) {
+                    displayResults(data);
+                } else {
+                    showAlert(data.error, 'error');
+                }
+            })
+            .catch(err => {
+                document.getElementById('loading').classList.add('hidden');
+                showAlert('Analysis failed: ' + err.message, 'error');
+            });
+        });
+
+        function displayResults(data) {
+            document.getElementById('scoreValue').textContent = data.score.toFixed(1);
+            document.getElementById('scoreDetails').textContent = `${data.process} | ${data.material}`;
+            document.getElementById('issuesCount').textContent = data.issues;
+            document.getElementById('warningsCount').textContent = data.warnings;
+            document.getElementById('suggestionsCount').textContent = data.suggestions;
+            document.getElementById('passedCount').textContent = data.passed;
+
+            let html = '';
+            
+            // Add score explanation
+            if (data.score_explanation) {
+                html += '<div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; margin: 20px 0; border-radius: 5px;">';
+                html += '<strong>📊 Score Calculation:</strong><br>';
+                html += data.score_explanation;
+                html += '</div>';
+            }
+            
+            // Add summary
+            if (data.summary) {
+                html += '<div style="background: #f5f5f5; border-left: 4px solid #9c27b0; padding: 20px; margin: 20px 0; border-radius: 5px;">';
+                html += '<h3 style="margin-top: 0; color: #9c27b0;">📋 Executive Summary</h3>';
+                html += '<div style="white-space: pre-line; line-height: 1.6;">' + data.summary + '</div>';
+                html += '</div>';
+            }
+            
+            // Add geometry info
+            if (data.geometry_info) {
+                html += '<h3 style="margin-top: 30px;">� Geometry Analysis</h3>';
+                html += '<div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 10px 0; border-radius: 5px;">';
+                html += '<strong>Dimensions:</strong> ' + data.geometry_info.dimensions + '<br>';
+                if (data.geometry_info.volume) html += '<strong>Volume:</strong> ' + data.geometry_info.volume + '<br>';
+                if (data.geometry_info.surface_area) html += '<strong>Surface Area:</strong> ' + data.geometry_info.surface_area + '<br>';
+                if (data.geometry_info.min_thickness) html += '<strong>Min Thickness:</strong> ' + data.geometry_info.min_thickness;
+                html += '</div>';
+            }
+            
+            // ========== NEW: COMPREHENSIVE RULE-BY-RULE BREAKDOWN ==========
+            if (data.all_rules && data.all_rules.length > 0) {
+                html += '<h3 style="margin-top: 30px; color: #1976d2;">📋 Complete Design Rule Evaluation</h3>';
+                html += '<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 15px 0;">';
+                html += '<p style="margin-bottom: 15px; color: #666;">Every design rule checked with detailed results and rationale:</p>';
+                
+                data.all_rules.forEach((rule, index) => {
+                    const ruleNum = index + 1;
+                    let statusIcon = '';
+                    let statusColor = '';
+                    let borderColor = '';
+                    let bgColor = '';
+                    
+                    if (rule.status === 'PASS') {
+                        statusIcon = '✅';
+                        statusColor = '#28a745';
+                        borderColor = '#28a745';
+                        bgColor = '#d4edda';
+                    } else if (rule.status === 'FAIL') {
+                        statusIcon = '❌';
+                        statusColor = '#dc3545';
+                        borderColor = '#dc3545';
+                        bgColor = '#f8d7da';
+                    } else if (rule.status === 'WARNING') {
+                        statusIcon = '⚠️';
+                        statusColor = '#ffc107';
+                        borderColor = '#ffc107';
+                        bgColor = '#fff3cd';
+                    } else if (rule.status === 'INFO') {
+                        statusIcon = 'ℹ️';
+                        statusColor = '#17a2b8';
+                        borderColor = '#17a2b8';
+                        bgColor = '#d1ecf1';
+                    }
+                    
+                    html += `
+                        <div style="background: white; border-left: 5px solid ${borderColor}; padding: 18px; margin: 12px 0; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <span style="font-size: 1.5em; margin-right: 10px;">${statusIcon}</span>
+                                <div style="flex: 1;">
+                                    <strong style="font-size: 1.1em; color: #333;">RULE ${ruleNum}: ${rule.name}</strong>
+                                    <span style="margin-left: 15px; padding: 4px 12px; background: ${bgColor}; color: ${statusColor}; border-radius: 12px; font-size: 0.85em; font-weight: bold;">
+                                        ${rule.status}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 12px 0; padding: 12px; background: #f8f9fa; border-radius: 4px;">
+                                <strong style="color: #495057;">📏 Standard:</strong> ${rule.standard}
+                            </div>
+                            
+                            <div style="margin: 12px 0;">
+                                <strong style="color: #495057;">🔍 Evaluation:</strong><br>
+                                <span style="color: #666; line-height: 1.6;">${rule.evaluation}</span>
+                            </div>
+                            
+                            ${rule.measured_value ? `
+                                <div style="margin: 12px 0; padding: 10px; background: #e7f3ff; border-radius: 4px;">
+                                    <strong style="color: #0066cc;">📊 Measured Value:</strong> ${rule.measured_value}
+                                </div>
+                            ` : ''}
+                            
+                            ${rule.recommendation ? `
+                                <div style="margin: 12px 0; padding: 10px; background: #e8f5e9; border-radius: 4px;">
+                                    <strong style="color: #2e7d32;">💡 Recommendation:</strong> ${rule.recommendation}
+                                </div>
+                            ` : ''}
+                            
+                            <div style="margin: 12px 0; padding: 12px; background: #fff8e1; border-radius: 4px; border-left: 3px solid #ffc107;">
+                                <strong style="color: #f57c00;">🎯 Why This Matters:</strong><br>
+                                <span style="color: #666; line-height: 1.6; font-style: italic;">${rule.rationale}</span>
+                            </div>
+                            
+                            ${rule.cost_impact ? `
+                                <div style="margin: 12px 0; padding: 10px; background: #f3e5f5; border-radius: 4px;">
+                                    <strong style="color: #7b1fa2;">💰 Cost Impact:</strong> ${rule.cost_impact}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            }
+            // ========== END NEW SECTION ==========
+            
+            // Keep existing sections for backward compatibility
+            if (data.rationale && data.rationale.length > 0) {
+                html += '<h3 style="margin-top: 30px;">🔍 Quick Summary</h3>';
+                html += '<div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; margin: 10px 0; border-radius: 5px;">';
+                data.rationale.forEach(item => {
+                    html += '<div style="margin: 8px 0; padding: 8px; background: white; border-radius: 3px;">' + item + '</div>';
+                });
+                html += '</div>';
+            }
+            
+            if (data.details.critical_issues && data.details.critical_issues.length > 0) {
+                html += '<h3 style="margin-top: 20px;">⚠️ Critical Issues</h3>';
+                data.details.critical_issues.forEach(issue => {
+                    html += `
+                        <div class="issue-card critical">
+                            <strong>${issue.category}</strong><br>
+                            ${issue.message}<br>
+                            <span style="color: #28a745;">→ ${issue.recommendation}</span>
+                            ${issue.rationale ? '<br><br><em style="color: #666;">Why: ' + issue.rationale + '</em>' : ''}
+                        </div>
+                    `;
+                });
+            }
+
+            if (data.details.warnings && data.details.warnings.length > 0) {
+                html += '<h3 style="margin-top: 20px;">⚠️ Warnings</h3>';
+                data.details.warnings.forEach(warn => {
+                    html += `
+                        <div class="issue-card">
+                            <strong>${warn.category}</strong><br>
+                            ${warn.message}<br>
+                            <span style="color: #28a745;">→ ${warn.recommendation}</span>
+                            ${warn.rationale ? '<br><br><em style="color: #666;">Why: ' + warn.rationale + '</em>' : ''}
+                        </div>
+                    `;
+                });
+            }
+
+            if (data.details.cost_savings && data.details.cost_savings.length > 0) {
+                html += '<h3 style="margin-top: 20px;">💰 Cost Optimization</h3>';
+                data.details.cost_savings.forEach(opp => {
+                    html += `
+                        <div class="issue-card" style="background: #d4edda; border-left-color: #28a745;">
+                            <strong>${opp.opportunity}</strong><br>
+                            Savings: ${opp.savings} | Difficulty: ${opp.difficulty}
+                            ${opp.rationale ? '<br><br><em style="color: #666;">' + opp.rationale + '</em>' : ''}
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('issuesList').innerHTML = html;
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').scrollIntoView({behavior: 'smooth'});
+            
+            // Store results for export
+            window.currentAnalysisResults = data;
+        }
+        
+        function exportToWord() {
+            console.log('Export button clicked');
+            console.log('Current results:', window.currentAnalysisResults);
+            console.log('Uploaded file:', uploadedFile);
+            
+            if (!window.currentAnalysisResults) {
+                showAlert('No analysis results to export. Please run an analysis first.', 'error');
+                return;
+            }
+            
+            // Show loading
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '⏳ Generating Word Document with 3D Renderings...';
+            btn.disabled = true;
+            
+            console.log('Sending export request...');
+            
+            fetch('/api/export/word', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    results: window.currentAnalysisResults,
+                    upload_id: uploadedFile ? uploadedFile.upload_id : null,
+                    filename: uploadedFile ? uploadedFile.filename : null
+                })
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`Export failed: ${text}`);
+                    });
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                console.log('Blob received, size:', blob.size);
+                
+                // Create download link
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                const timestamp = new Date().toISOString().slice(0,19).replace(/:/g,'-');
+                const process = window.currentAnalysisResults.process.replace(/ /g, '_');
+                a.download = `DFM_Report_${process}_${timestamp}.docx`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                
+                showAlert('Word document with 3D visualizations downloaded successfully!', 'success');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            })
+            .catch(error => {
+                console.error('Export error:', error);
+                showAlert('Failed to export Word document: ' + error.message, 'error');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.classList.remove('hidden');
+            setTimeout(() => alert.classList.add('hidden'), 5000);
+        }
+    </script>
+</body>
+</html>

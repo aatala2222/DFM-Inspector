@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\exchange\threemf.py
+# hypothesis_version: 6.151.9
+
+[4096, '(', '/', '/3D/3dmodel.model', '3D/3dmodel.model', '3d/3dmodel.model', '3mf', 'Default', 'Relationship', 'Relationships', 'Types', '[Content_Types].xml', '_rels/.rels', 'b', 'base_frame', 'body', 'build', 'camera', 'component', 'components', 'compression', 'compresslevel', 'end', 'faces', 'frame_from', 'frame_to', 'geometry', 'graph', 'id', 'image/jpeg', 'image/png', 'item', 'jpeg', 'jpg', 'm', 'matrix', 'mesh', 'metadata', 'millimeter', 'millimeters', 'model', 'name', 'object', 'objectid', 'p', 'p:UUID', 'partnumber', 'path', 'png', 'rel0', 'rels', 'resources', 's', 'sc', 'start', 'texture', 'transform', 'triangles', 'type', 'unit', 'units', 'utf-8', 'vertices', 'w', 'world', 'zip', '{*}build', '{*}component', '{*}item', '{*}mesh', '{*}model', '{*}object', '{*}triangle', '{*}triangles', '{*}vertex', '{*}vertices', '{{{}}}UUID']

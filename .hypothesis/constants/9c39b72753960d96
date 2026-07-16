@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\numpy\ma\mrecords.py
+# hypothesis_version: 6.151.9
+
+['              )', '    fill_value', '#', ',', 'MaskedRecords', 'Wow, binary file', '\\x', '__dict__', '_baseclass', '_data', '_fieldmask', '_fill_value', '_mask', '_optinfo', 'addfield', 'b', 'b1', 'dtype', 'fieldmask', 'fromarrays', 'fromrecords', 'fromtextfile', 'mask', 'masked_records(', 'mrecarray', 'readline', '|b1']

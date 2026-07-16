@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\DFM PRO\src\geometry_analyzer.py
+# hypothesis_version: 6.151.9
+
+[0.0, 0.001, 0.01, 1.0, 100, 1000, 100000, 1000000, 'avg', 'avg_thickness', 'dimensions', 'face_count', 'hole_diameter', 'is_watertight', 'max', 'max_thickness', 'measurements', 'min', 'min_location', 'min_thickness', 'pocket_depth', 'samples', 'surface_area', 'thickness_map', 'vertex_count', 'volume', 'wall_thickness', 'x', 'y', 'z']

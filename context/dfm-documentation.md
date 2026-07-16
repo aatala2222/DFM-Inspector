@@ -1,0 +1,8 @@
+"# DFM Documentation" 
+"" 
+"## Source: docs/ folder" 
+"" 
+"---" 
+"## $(basename "$file")" 
+"" 
+"" 

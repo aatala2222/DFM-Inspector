@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\exchange\threedxml.py
+# hypothesis_version: 6.151.9
+
+[1.0, 128, 255, '#', ',', '1D', '3dxml', ':', 'CATMaterialRef.3dxml', 'Instance3D', 'InstanceRep', 'Manifest.xml', 'RGBAColorType', 'Reference3D', 'Scene', 'TESSELLATED', 'Trimesh', 'Value', 'aggregate', 'alpha', 'associatedFile', 'blue', 'class', 'color', 'dimension', 'face_colors', 'faces', 'fans', 'format', 'frame_from', 'frame_to', 'geometry', 'graph', 'green', 'id', 'instance', 'matrix', 'metadata', 'mm', 'name', 'red', 'root', 'strips', 'triangles', 'type', 'units', 'urn:3DXML:', 'utf-8', 'vertex_normals', 'vertices', 'visual', 'zip', '{*}DefaultView', '{*}Face', '{*}Faces', '{*}Instance3D', '{*}InstanceRep', '{*}IsAggregatedBy', '{*}IsInstanceOf', '{*}MaterialDomain', '{*}MaterialId', '{*}OccurenceId/{*}id', '{*}ProductStructure', '{*}Reference3D', '{*}ReferenceRep', '{*}RelativeMatrix', '{*}Rep', '{*}Root']

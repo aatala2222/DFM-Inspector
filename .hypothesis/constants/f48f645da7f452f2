@@ -1,0 +1,4 @@
+# file: C:\Users\aleatala\AppData\Roaming\Python\Python313\site-packages\trimesh\graph.py
+# hypothesis_version: 6.151.9
+
+[1e-10, 0.01, 2.0, 10.0, '-Tsvg', 'bfs', 'dfs', 'dot', 'networkx', 'original_components', 'scipy']
