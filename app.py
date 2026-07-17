@@ -49,7 +49,7 @@ def get_report_generator():
 
 @app.route('/')
 def index():
-    return render_template('index.html', processes={})
+        return render_template('interface.html')
 
 @app.route('/health')
 def health():
