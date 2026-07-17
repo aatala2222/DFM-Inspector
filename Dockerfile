@@ -49,7 +49,7 @@ COPY rules/ /app/rules/
 #   - 300s timeout: STEP analysis can take a while on large parts.
 #   - access log to stdout so it shows up in CloudWatch.
 ENV PORT=80 \
-    GUNICORN_WORKERS=2 \
+    GUNICORN_WORKERS=1 \
     GUNICORN_TIMEOUT=300 \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
