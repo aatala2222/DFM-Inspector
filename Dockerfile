@@ -58,8 +58,5 @@ EXPOSE 80
 
 # /health is provided by app.py via gunicorn's WSGI; no extra endpoint
 # wiring needed because we add it in app.py below.
-HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
-    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:80/health',timeout=5).status==200 else 1)" \
-        || exit 1
 
 CMD ["sh", "-c", "gunicorn --workers=${GUNICORN_WORKERS} --timeout=${GUNICORN_TIMEOUT} --bind=0.0.0.0:${PORT} --access-logfile=- --error-logfile=- app:app"]
