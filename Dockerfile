@@ -42,7 +42,6 @@ COPY templates/ /app/templates/
 COPY rules/ /app/rules/
 
 # Drop privileges.
-USER dfm
 
 # Gunicorn config:
 #   - 2 workers: small enough for App Runner's smallest size, large enough
