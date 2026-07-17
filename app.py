@@ -45,11 +45,18 @@ def get_report_generator():
         from src.report_generator import ReportGenerator
         _report_generator = ReportGenerator()
     return _report_generator
-
+            return render_template('interface.html', processes={
+    'cnc_machining': {'name': 'CNC Machining', 'icon': '⚙️', 'description': 'Milling, turning, drilling', 'status': 'available', 'materials': ['Aluminum 6061', 'Steel 1018']},
+    'welding': {'name': 'Welding', 'icon': '🔥', 'description': 'MIG, TIG, spot welding', 'status': 'available', 'materials': ['Steel', 'Aluminum']},
+    'sheet_metal': {'name': 'Sheet Metal', 'icon': '📋', 'description': 'Bending, forming, laser cutting', 'status': 'available', 'materials': ['Steel', 'Aluminum']},
+    'injection_molding': {'name': 'Injection Molding', 'icon': '💉', 'description': 'Plastic part molding', 'status': 'available', 'materials': ['ABS', 'Nylon']},
+    'die_casting': {'name': 'Die Casting (HPDC)', 'icon': '🏭', 'description': 'High-pressure die casting', 'status': 'available', 'materials': ['Aluminum', 'Zinc']},
+    'investment_casting': {'name': 'Investment Casting', 'icon': '🎨', 'description': 'Lost-wax casting', 'status': 'available', 'materials': ['Steel', 'Aluminum']},
+})
 
 @app.route('/')
 def index():
-        return render_template('interface.html')
+        
 
 @app.route('/health')
 def health():
